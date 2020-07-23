@@ -9,5 +9,5 @@ with open('./PDFs/dummy.pdf', 'rb') as file:
     writer = PDF.PdfFileWriter()
     writer.addPage(page)
 
-    with open('./PDFs/titled.pdf', 'wb') as new_file:
+    with open('./PDFs/tilted.pdf', 'wb') as new_file:
         writer.write(new_file)
