@@ -11,11 +11,26 @@ def request_api_data(query_char):
     return res
 
 
+def read_res(response):
+    print(response.text)
+
+
+def get_password_leaks_count(hashes, hash_to_check):
+    hashes = (line.split(':') for line in hashes.text.splitlines())
+    for h, count in hashes:
+        print(h, count)
+    print(hashes)
+
+
 def pwned_api_check(password):
     # Check password if it exists in API response
     print(hashlib.sha1(password.encode('utf-8')).hexdigest().upper())  # 40BD001563085FC35165329EA1FF5C5ECBDBBEEF
     sha1password = hashlib.sha1(password.encode('utf-8')).hexdigest().upper()
-    return sha1password
+    first5_char, tail = sha1password[:5], sha1password[5:]
+    response = request_api_data(first5_char)
+    print(first5_char, tail)
+    print(response)
+    return read_res(response), get_password_leaks_count(response, tail)
 
 
 #request_api_data('123')
