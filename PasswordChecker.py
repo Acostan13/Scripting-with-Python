@@ -47,7 +47,9 @@ def main(args):
     return 'done!'
 
 
-main(sys.argv[1:])
+if __name__ == '__main__':
+    sys.exit(main(sys.argv[1:]))
+
 # python PasswordChecker.py hello => hello was found 255676 times... you should probably change your password
 # python PasswordChecker.py rotunjvce8975w00q => rotunjvce8975w00q was NOT found. Carry on!'
 
