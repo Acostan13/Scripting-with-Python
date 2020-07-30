@@ -16,4 +16,18 @@ print(soup.select('#score_23995750'))  # grabs all the span tags with id 'score_
 links = soup.select('.storylink')
 votes = soup.select('.score')
 print(votes[0])  # <span class="score" id="score_23999542">181 points</span>
-votes.get('id')  # score_23999542
+votes[0].get('id')  # score_23999542
+
+
+def create_custom_hn(links, votes):
+    hn = []
+    for ind, item in enumerate(links):
+        title = links[ind].getText()
+        href = links[ind].get('href', None)
+        points = int(votes[ind].getText().replace(' points', ''))
+        print(points)
+        hn.append({'title': title, 'link': href})
+    return hn
+
+
+print(create_custom_hn(links, votes))  # displays all the links on the page
