@@ -3,9 +3,11 @@ from bs4 import BeautifulSoup
 import pprint
 
 res = requests.get('https://news.ycombinator.com/news')
+res2 = requests.get('https://news.ycombinator.com/news?p=2')
 # print(res.text)
 
 soup = BeautifulSoup(res.text, 'html.parser')
+soup2 = BeautifulSoup(res2.text, 'html.parser')
 # print(soup.body.contents) # gives the entire html content of the page
 # print(soup.find_all('div'))  # gives a list of all the div's on the page
 # print(soup.title)  # <title>Hacker News</title>
@@ -18,6 +20,9 @@ links = soup.select('.storylink')
 subtext = soup.select('.subtext')
 print(subtext[0])  # <span class="score" id="score_23999542">181 points</span>
 subtext[0].get('id')  # score_23999542
+
+links2 = soup.select('.storylink')
+subtext2 = soup.select('.subtext')
 
 
 def sort_stories_by_votes(hnlist):
@@ -38,5 +43,5 @@ def create_custom_hn(links, subtext):
     return sort_stories_by_votes(hn)
 
 
-pprint.pprint(create_custom_hn(links, subtext))  # displays all the links on the page
-
+pprint.pprint(create_custom_hn(links, subtext))  # displays all the links on the first page
+pprint.pprint(create_custom_hn(links2, subtext2))  # displays all the links on the second page
