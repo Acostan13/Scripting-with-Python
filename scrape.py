@@ -20,6 +20,10 @@ print(subtext[0])  # <span class="score" id="score_23999542">181 points</span>
 subtext[0].get('id')  # score_23999542
 
 
+def sort_stories_by_votes(hnlist):
+    return sorted(hnlist, key=lambda key: key['votes'], reverse=True)
+
+
 def create_custom_hn(links, subtext):
     hn = []
     for ind, item in enumerate(links):
@@ -28,10 +32,10 @@ def create_custom_hn(links, subtext):
         vote = subtext[ind].select('.score')
         if len(vote):
             points = int(vote[0].getText().replace(' points', ''))
-            if points > 99:  
+            if points > 99:
                 # print(points)
                 hn.append({'title': title, 'link': href, 'votes': points})
-    return hn
+    return sort_stories_by_votes(hn)
 
 
 pprint.pprint(create_custom_hn(links, subtext))  # displays all the links on the page
